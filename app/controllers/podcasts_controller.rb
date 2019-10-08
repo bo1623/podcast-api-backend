@@ -6,6 +6,7 @@ class PodcastsController < ApplicationController
   end
 
   def create
+    
   end
 
 end
