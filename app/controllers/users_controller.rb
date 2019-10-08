@@ -1,7 +1,12 @@
 class UsersController < ApplicationController
 
     def create
-      raise params.inspect
+      User.find_or_create_by(username: params[:username])
     end
+
+    def index
+      render json: {message: "HI"}
+    end
+
 
 end
