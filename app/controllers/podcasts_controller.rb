@@ -5,4 +5,7 @@ class PodcastsController < ApplicationController
     render json: PodcastSerializer.new(podcasts).to_serialized_json
   end
 
+  def create
+  end
+
 end
