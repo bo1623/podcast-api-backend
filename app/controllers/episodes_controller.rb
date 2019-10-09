@@ -15,7 +15,7 @@ class EpisodesController < ApplicationController
     episode.save
 
     #create savedepisode instance
-    savedepisode=Savedepisode.create(user: user, episode: episode)
+    savedepisode=Savedepisode.find_or_create_by(user: user, episode: episode)
     savedepisodes=user.savedepisodes.map{|savedep| savedep.episode}
 
     render json: EpisodeSerializer.new(savedepisodes).to_serialized_json
