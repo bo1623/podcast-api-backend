@@ -2,15 +2,22 @@ class EpisodesController < ApplicationController
 
   def create
     details=eval(params[:_json]) #converting stringified hash to an actual ruby hash with the use of eval
-    User.find_or_create_by(username: details[:username])
+    user=User.find_or_create_by(username: details[:username])
+
     episode_hash=details[:episode]
     podcast_hash=details[:podcast]
-    podcast_hash=podcast_hash.reject { |k,v| k == :total_episodes }
+    podcast_hash=podcast_hash.reject { |k,v| k == :total_episodes } #don't want to save total_episodes because it's non-constant
+
+    #creating podcast and episode, and assigning relationship of this episode to the podcast
     podcast=Podcast.find_or_create_by(podcast_hash)
     episode=Episode.find_or_create_by(episode_hash)
     episode.podcast=podcast
     episode.save
-    render json: EpisodeSerializer.new(episode).to_serialized_json
+
+    #create savedepisode instance
+    savedepisode=Savedepisode.create(user: user, episode: episode)
+
+    render json: EpisodeSerializer.new(savedepisode).to_serialized_json
   end
 
   def index
