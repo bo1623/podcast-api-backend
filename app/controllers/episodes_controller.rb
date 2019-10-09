@@ -1,14 +1,21 @@
 class EpisodesController < ApplicationController
 
   def create
-    hash=eval(params[:_json]) #converting stringified hash to an actual ruby hash with the use of eval
-    User.find_or_create_by(username: hash[:username])
-    episode=Episode.find_or_create_by(id: hash[:episode_id])
-    hash.reject { |k,v| k == :username }
-    hash.each do |key,value|
-      episode.key=value
-    end
+    episode_hash=eval(params[:_json]) #converting stringified hash to an actual ruby hash with the use of eval
+    User.find_or_create_by(username: episode_hash[:username])
+    byebug
+    episode=Episode.where(episode_id: episode_hash[:episode_id]).first_or_initialize
+    episode_hash.reject { |k,v| k == :username }
+    episode.audio_url=episode_hash[:audio_url]
+    episode.description=episode_hash[:description]
+    episode.published_date=episode_hash[:published_date]
+    episode.audio_length=episode_hash[:audio_length]
+    episode.title=episode_hash[:title]
+    # hash.each do |key,value|
+    #   episode.key=value
+    # end
     puts episode
+    episode.save
     render json: {episode: params[:_json]}
   end
 

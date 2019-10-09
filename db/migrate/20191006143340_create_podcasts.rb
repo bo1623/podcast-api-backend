@@ -6,7 +6,7 @@ class CreatePodcasts < ActiveRecord::Migration[6.0]
       t.string :image_url
       t.string :audio_url
       t.integer :audio_length
-      t.string :podcast_id
+      t.string :podcast_id 
       t.string :description
       # t.integer :publication_date use only for episodes
 

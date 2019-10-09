@@ -10,26 +10,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_09_041600) do
+ActiveRecord::Schema.define(version: 2019_10_09_064731) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "episodes", force: :cascade do |t|
     t.bigint "podcast_id", null: false
-    t.bigint "user_id", null: false
+    t.string "audio_url"
+    t.string "description"
+    t.string "episode_id"
+    t.integer "published_date"
+    t.integer "audio_length"
+    t.string "title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["podcast_id"], name: "index_episodes_on_podcast_id"
-    t.index ["user_id"], name: "index_episodes_on_user_id"
   end
 
   create_table "podcasts", force: :cascade do |t|
-    t.string "title"
+    t.string "podcast_title"
     t.string "image_url"
     t.string "audio_url"
+    t.integer "audio_length"
+    t.string "podcast_id"
+    t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "savedepisodes", force: :cascade do |t|
+    t.bigint "episode_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["episode_id"], name: "index_savedepisodes_on_episode_id"
+    t.index ["user_id"], name: "index_savedepisodes_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -39,5 +55,6 @@ ActiveRecord::Schema.define(version: 2019_10_09_041600) do
   end
 
   add_foreign_key "episodes", "podcasts"
-  add_foreign_key "episodes", "users"
+  add_foreign_key "savedepisodes", "episodes"
+  add_foreign_key "savedepisodes", "users"
 end
