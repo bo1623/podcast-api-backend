@@ -5,9 +5,9 @@ class SavedepisodesController < ApplicationController
   end
 
   def create
-    raise params.inspect
     user=User.find_or_create_by(username: params[:username])
-    
+    savedepisodes=user.savedepisodes.map{|savedep| savedep.episode}
+    render json: SavedepisodeSerializer.new(savedepisodes).to_serialized_json
   end
 
 end
