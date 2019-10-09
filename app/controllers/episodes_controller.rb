@@ -1,8 +1,10 @@
 class EpisodesController < ApplicationController
 
   def create
-    episode_hash=eval(params[:_json]) #converting stringified hash to an actual ruby hash with the use of eval
-    User.find_or_create_by(username: episode_hash[:username])
+    details=eval(params[:_json]) #converting stringified hash to an actual ruby hash with the use of eval
+    User.find_or_create_by(username: details[:username])
+    episode_hash=details[:episode]
+    podcast_hash=details[:podcast]
     byebug
     episode=Episode.where(episode_id: episode_hash[:episode_id]).first_or_initialize
     episode_hash.reject { |k,v| k == :username }

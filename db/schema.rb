@@ -29,10 +29,8 @@ ActiveRecord::Schema.define(version: 2019_10_09_064731) do
   end
 
   create_table "podcasts", force: :cascade do |t|
-    t.string "podcast_title"
+    t.string "title"
     t.string "image_url"
-    t.string "audio_url"
-    t.integer "audio_length"
     t.string "podcast_id"
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
