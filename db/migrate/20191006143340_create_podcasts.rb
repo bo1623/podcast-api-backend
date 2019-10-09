@@ -3,7 +3,7 @@ class CreatePodcasts < ActiveRecord::Migration[6.0]
     create_table :podcasts do |t|
 
       t.string :title
-      t.string :image_url
+      t.string :image
       t.string :podcast_id
       t.string :description
       # t.integer :publication_date use only for episodes

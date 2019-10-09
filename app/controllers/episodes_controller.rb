@@ -5,9 +5,13 @@ class EpisodesController < ApplicationController
     User.find_or_create_by(username: details[:username])
     episode_hash=details[:episode]
     podcast_hash=details[:podcast]
+    podcast_hash=podcast_hash.reject { |k,v| k == :total_episodes }
     byebug
-    episode=Episode.where(episode_id: episode_hash[:episode_id]).first_or_initialize
-    episode_hash.reject { |k,v| k == :username }
+    podcast=Podcast.find_or_create_by(podcast_hash)
+    episode=Episode.find_or_create_by(episode_hash)
+    episode.podcast=podcast
+    # episode=Episode.where(episode_id: episode_hash[:episode_id]).first_or_initialize
+    episode_hash=episode_hash.reject { |k,v| k == :username }
     episode.audio_url=episode_hash[:audio_url]
     episode.description=episode_hash[:description]
     episode.published_date=episode_hash[:published_date]

@@ -20,9 +20,10 @@ ActiveRecord::Schema.define(version: 2019_10_09_064731) do
     t.string "audio_url"
     t.string "description"
     t.string "episode_id"
-    t.integer "published_date"
+    t.bigint "published_date"
     t.integer "audio_length"
     t.string "title"
+    t.string "listennotes_podcast_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["podcast_id"], name: "index_episodes_on_podcast_id"
@@ -30,7 +31,7 @@ ActiveRecord::Schema.define(version: 2019_10_09_064731) do
 
   create_table "podcasts", force: :cascade do |t|
     t.string "title"
-    t.string "image_url"
+    t.string "image"
     t.string "podcast_id"
     t.string "description"
     t.datetime "created_at", precision: 6, null: false

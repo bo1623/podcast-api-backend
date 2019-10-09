@@ -5,9 +5,10 @@ class CreateEpisodes < ActiveRecord::Migration[6.0]
       t.string :audio_url
       t.string :description
       t.string :episode_id
-      t.integer :published_date
+      t.integer :published_date, limit: 8
       t.integer :audio_length
       t.string :title
+      t.string :listennotes_podcast_id
 
       t.timestamps
     end
