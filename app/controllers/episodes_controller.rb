@@ -10,8 +10,12 @@ class EpisodesController < ApplicationController
     episode=Episode.find_or_create_by(episode_hash)
     episode.podcast=podcast
     episode.save
-    puts episode
-    render json: episode.to_json
+    render json: EpisodeSerializer.new(episode).to_serialized_json
+  end
+
+  def index
+    episodes=Episode.all[0]
+    render json: EpisodeSerializer.new(episodes).to_serialized_json
   end
 
 end
