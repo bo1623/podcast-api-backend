@@ -16,8 +16,9 @@ class EpisodesController < ApplicationController
 
     #create savedepisode instance
     savedepisode=Savedepisode.create(user: user, episode: episode)
+    savedepisodes=user.savedepisodes.map{|savedep| savedep.episode}
 
-    render json: EpisodeSerializer.new(savedepisode).to_serialized_json
+    render json: EpisodeSerializer.new(savedepisodes).to_serialized_json
   end
 
   def index
