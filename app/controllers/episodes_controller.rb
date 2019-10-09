@@ -5,7 +5,6 @@ class EpisodesController < ApplicationController
     User.find_or_create_by(username: hash[:username])
     episode=Episode.find_or_create_by(id: hash[:episode_id])
     hash.reject { |k,v| k == :username }
-    puts hash
     hash.each do |key,value|
       episode.key=value
     end

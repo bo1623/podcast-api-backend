@@ -1,0 +1,2 @@
+class SavedepisodesController < ApplicationController
+end
