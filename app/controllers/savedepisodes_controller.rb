@@ -11,7 +11,10 @@ class SavedepisodesController < ApplicationController
   end
 
   def destroy
-    raise params.inspect
+    episode=Episode.find_by(episode_id: params[:episode_id])
+    user=User.find_by(username: params[:username])
+    savedepisode=Savedepisode.find_by(episode: episode, user: user)
+    Savedepisode.destroy(savedepisode.id)
   end
 
 end
