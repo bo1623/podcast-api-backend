@@ -9,8 +9,12 @@ class ReviewsController < ApplicationController
 
   def index
     podcast=Podcast.find_by(podcast_id: params[:podcast_id])
-    reviews=podcast.reviews
-    render json: ReviewSerializer.new(reviews).to_serialized_json
+    if !!podcast
+      reviews=podcast.reviews
+      render json: ReviewSerializer.new(reviews).to_serialized_json
+    else
+      render json: {reviews:[]}
+    end
   end
 
 
