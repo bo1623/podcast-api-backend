@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_09_064731) do
+ActiveRecord::Schema.define(version: 2019_10_10_061614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,16 @@ ActiveRecord::Schema.define(version: 2019_10_09_064731) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "podcast_id", null: false
+    t.string "text"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["podcast_id"], name: "index_reviews_on_podcast_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
   create_table "savedepisodes", force: :cascade do |t|
     t.bigint "episode_id", null: false
     t.bigint "user_id", null: false
@@ -54,6 +64,8 @@ ActiveRecord::Schema.define(version: 2019_10_09_064731) do
   end
 
   add_foreign_key "episodes", "podcasts"
+  add_foreign_key "reviews", "podcasts"
+  add_foreign_key "reviews", "users"
   add_foreign_key "savedepisodes", "episodes"
   add_foreign_key "savedepisodes", "users"
 end
