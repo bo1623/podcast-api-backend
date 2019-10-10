@@ -10,4 +10,8 @@ class SavedepisodesController < ApplicationController
     render json: SavedepisodeSerializer.new(savedepisodes).to_serialized_json
   end
 
+  def destroy
+    raise params.inspect
+  end
+
 end
