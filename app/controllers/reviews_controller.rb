@@ -1,9 +1,11 @@
 class ReviewsController < ApplicationController
 
   def create
-    raise params.inspect
-    user=User.find_by(username: params[:username]) #user should have been created when the user logs in 
-    podcast=Podcast.find_by(podcast_id: params[:podcast_id])
+    user=User.find_by(username: params[:username]) #user should have been created when the user logs in
+    podcast_hash=params[:podcast]
+    podcast_hash_mod=podcast_hash.each{|key,value| key.to_sym}
+    podcast_hash_mod=podcast_hash_mod.reject { |k,v| k == "total_episodes" }
+    podcast=Podcast.find_or_create_by(podcast_hash_mod)
     review=Review.create(user: user, podcast:podcast, text:params[:review])
   end
 
